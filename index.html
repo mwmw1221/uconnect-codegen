@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html data-theme="dim">
+
+<head>
+  <title>Codegen</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/altcha@2.3.0/+esm" type="module"></script>
+  <style>
+    .altcha {
+      border: none !important;
+      border-radius: 15px !important;
+      background-color: rgba(0, 0, 0, 0) !important;
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-linear-to-r from-violet-800 to-emerald-700 print:bg-white">
+  <div class="print:hidden card lg:card-side bg-base-100/20 shadow-sm">
+    <div class="card-body">
+      <p>uconnect radio code generator</p>
+      <h2 class="text-lg">Click the button to generate your code&nbsp;<span
+          class="bg-primary text-primary-content px-2">for FREE</span></h2>
+      <div class="card-actions justify-end mt-10">
+        <button class="btn btn-primary" onclick="my_modal_1.showModal(); resetCaptcha()" id="button-gen">Generate code
+          now</button>
+      </div>
+    </div>
+  </div>
+  <dialog id="my_modal_1" class="modal print:hidden">
+    <div class="modal-box bg-base-100/20 backdrop-blur-sm flex flex-col items-center">
+      <h3 class="text-lg font-bold text-center">Please enter the last 4 digits of your S/N and select the radio type.
+      </h3>
+      <label class="input mt-5">
+        4 digits of S/N
+        <input type="text" class="grow" placeholder="1234" id="serialInput" />
+      </label>
+      <select class="select mt-2" id="typeSelect">
+        <option disabled selected class="hidden">Pick a type</option>
+        <option>Harman (T00BE...)</option>
+        <option disabled>More coming soon...</option>
+      </select>
+      <altcha-widget style="width: 260px; display: block;" theme="dark" class="mt-5 mb-5 border-none" id="altcha"
+        challengeurl=""></altcha-widget>
+
+      <div class="modal-action">
+        <form method="dialog">
+          <!-- if there is a button in form, it will close the modal -->
+          <button class="btn">Close</button>
+          <button class="btn btn-primary" id="gen-btn" onclick="handleGenerateButtonClick()">Generate</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="my_modal_2" class="modal print:hidden">
+    <div class="modal-box bg-base-100/20 backdrop-blur-sm">
+      <h3 class="text-lg font-bold">Result</h3>
+      <p class="py-4" id="result"></p>
+      <div class="modal-action">
+        <form method="dialog">
+          <!-- if there is a button in form, it will close the modal -->
+          <button class="btn btn-primary">OK</button>
+          <button class="btn btn-accent" onclick="window.print()">Print</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="my_modal_3" class="modal print:hidden">
+    <div class="modal-box bg-base-100/20 backdrop-blur-sm">
+      <h3 class="text-lg font-bold">Error</h3>
+      <p class="py-4" id="error"></p>
+      <div class="modal-action">
+        <form method="dialog">
+          <!-- if there is a button in form, it will close the modal -->
+          <button class="btn">OK</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <p class="hidden print:block text-black text-4xl text-center" id="outputPrint"></p>
+
+  <script defer src="bridge.min.js"></script>
+  <script src="logic.js"></script>
+
+</body>
+
+</html>
